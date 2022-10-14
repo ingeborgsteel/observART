@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hvart_har_du_sett/constants/app_constants.dart';
-import "package:latlong2/latlong.dart";
+import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
-
 
 class TerrainMap extends StatefulWidget {
   const TerrainMap({Key? key}) : super(key: key);
@@ -14,10 +13,8 @@ class TerrainMap extends StatefulWidget {
 }
 
 class _TerrainMapState extends State<TerrainMap> {
-
   late final MapController mapController;
-
-  List<Marker> _markers = [];
+  var _selectedPoint;
 
   @override
   void initState() {
@@ -51,68 +48,59 @@ class _TerrainMapState extends State<TerrainMap> {
 
   _setMarker(LatLng point) {
     setState(() {
-      _markers = [Marker(
-        height: 40,
-        width: 40,
-        point: point,
-        builder: (_) {
-          return const Icon(
-            Icons.location_on,
-            color: Colors.blue,
-            size: 36.0,
-          );
-        }
-      )];
+      _selectedPoint = point;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text('HvART har du sett?')
-      ),
-      body: FutureBuilder<LocationData?>(
-        future: _currentLocation(),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if(snapshot.hasData) {
-            final LocationData currentLocation = snapshot.data;
-            final LatLng selectedLocation = LatLng(currentLocation.latitude!, currentLocation.longitude!);
-            return Stack(
-                children: [
+        appBar: AppBar(
+            backgroundColor: Colors.white,
+            title: const Text(AppConstants.appName)),
+        body: FutureBuilder<LocationData?>(
+            future: _currentLocation(),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if (snapshot.hasData) {
+                final LocationData currentLocation = snapshot.data;
+                final LatLng locationPoint = LatLng(
+                    currentLocation.latitude!, currentLocation.longitude!);
+                return Stack(children: [
                   FlutterMap(
                       mapController: mapController,
                       options: MapOptions(
                           minZoom: 5,
                           maxZoom: 18,
                           zoom: 13,
-                          center: selectedLocation,
+                          center: locationPoint,
                           onTap: (position, location) {
                             _setMarker(location);
-                          }
-                      ),
+                          }),
                       layers: [
                         TileLayerOptions(
-                            urlTemplate: "https://api.mapbox.com/styles/v1/{mapBoxUserName}/{mapStyleId}/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}",
+                            urlTemplate: AppConstants.mapBoxUrl,
                             additionalOptions: {
                               'mapStyleId': AppConstants.mapBoxStyleId,
                               'accessToken': AppConstants.mapBoxAccessToken,
-                              'mapBoxUserName': AppConstants.mapBoxUserName
-                            }
-
-                        ),
-                        MarkerLayerOptions(
-                          markers: _markers
-                        )
-                      ]
-                  )
-                ]
-            );
-          }
-          return const Center(child: CircularProgressIndicator());
-        }
-      )
-    );
+                              'mapBoxUserName': AppConstants.mapBoxUserName,
+                            }),
+                        MarkerLayerOptions(markers: [
+                          Marker(
+                              height: 40,
+                              width: 40,
+                              point: _selectedPoint ?? locationPoint,
+                              builder: (_) {
+                                return const Icon(
+                                  Icons.location_on,
+                                  color: Colors.blue,
+                                  size: 36.0,
+                                );
+                              })
+                        ])
+                      ])
+                ]);
+              }
+              return const Center(child: CircularProgressIndicator());
+            }));
   }
 }
