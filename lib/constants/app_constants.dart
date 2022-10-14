@@ -1,3 +1,5 @@
+import 'package:latlong2/latlong.dart';
+
 class AppConstants {
   static const String appName = 'HvART har du sett?';
 
@@ -10,4 +12,6 @@ class AppConstants {
   static const String mapBoxStyleId = 'cl8d0tlx3002s14mvd3tojqvm';
 
   static const String mapBoxUserName = 'ingeborgsteel';
+
+  static LatLng defaultPosition = LatLng(59.91351942580387, 10.84886397486003);
 }

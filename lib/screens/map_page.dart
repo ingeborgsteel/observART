@@ -5,16 +5,16 @@ import 'package:hvart_har_du_sett/constants/app_constants.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 
-class TerrainMap extends StatefulWidget {
-  const TerrainMap({Key? key}) : super(key: key);
+class MapPage extends StatefulWidget {
+  const MapPage({Key? key}) : super(key: key);
 
   @override
-  State<TerrainMap> createState() => _TerrainMapState();
+  State<MapPage> createState() => _MapPageState();
 }
 
-class _TerrainMapState extends State<TerrainMap> {
+class _MapPageState extends State<MapPage> {
   late final MapController mapController;
-  var _selectedPoint;
+  var _selectedPoint = AppConstants.defaultPosition;
 
   @override
   void initState() {
@@ -88,7 +88,7 @@ class _TerrainMapState extends State<TerrainMap> {
                           Marker(
                               height: 40,
                               width: 40,
-                              point: _selectedPoint ?? locationPoint,
+                              point: _selectedPoint,
                               builder: (_) {
                                 return const Icon(
                                   Icons.location_on,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hvart_har_du_sett/constants/app_constants.dart';
-import 'package:hvart_har_du_sett/screens/terrain_map.dart';
+import 'package:hvart_har_du_sett/screens/map_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.black,
         ),
       ),
-      home: const TerrainMap(),
+      home: const MapPage(),
     );
   }
 }
