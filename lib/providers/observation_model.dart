@@ -1,5 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
-class ObservationModel extends ChangeNotifier {
-  String uid;
+class ObservationState extends ChangeNotifier {
+  var location;
+  var locationName;
+  var coObserver;
+  var accuracy;
+  var dateStart;
+  var dateEnd;
 }

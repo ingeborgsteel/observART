@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hvart_har_du_sett/constants/app_constants.dart';
+import 'package:hvart_har_du_sett/widgets/observation_form.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 
@@ -63,8 +63,6 @@ class _MapPageState extends State<MapPage> {
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.hasData) {
                 final LocationData currentLocation = snapshot.data;
-                final LatLng locationPoint = LatLng(
-                    currentLocation.latitude!, currentLocation.longitude!);
                 return Stack(children: [
                   FlutterMap(
                       mapController: mapController,
@@ -72,7 +70,8 @@ class _MapPageState extends State<MapPage> {
                           minZoom: 5,
                           maxZoom: 18,
                           zoom: 13,
-                          center: locationPoint,
+                          center: LatLng(currentLocation.latitude!,
+                              currentLocation.longitude!),
                           onTap: (position, location) {
                             _setMarker(location);
                           }),
@@ -97,7 +96,13 @@ class _MapPageState extends State<MapPage> {
                                 );
                               })
                         ])
-                      ])
+                      ]),
+                  const Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: ObservationForm(),
+                  )
                 ]);
               }
               return const Center(child: CircularProgressIndicator());
