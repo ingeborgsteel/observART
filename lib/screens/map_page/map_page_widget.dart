@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mapbox_search/mapbox_search.dart';
+import 'package:location/location.dart';
 
 import '/components/main_logo/main_logo_widget.dart';
+import '/components/map/map_widget.dart';
 import '/components/observation_form/observation_form_widget.dart';
-import '/flutter_flow/flutter_flow_static_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/lat_lng.dart';
 import 'map_page_model.dart';
 
 export 'map_page_model.dart';
@@ -92,19 +91,16 @@ class _MapPageWidgetState extends State<MapPageWidget> {
           children: [
             Align(
               alignment: AlignmentDirectional(0.0, 0.0),
-              child: FlutterFlowStaticMap(
-                location: LatLng(9.341465, -79.891704),
-                apiKey:
-                    'pk.eyJ1IjoiaW5nZWJvcmdzdGVlbCIsImEiOiJjbDhkMGh4ZGsxNXpjM3duM3Nkc2V3ZzkyIn0.JCkBhNz-123AhJNSLl4ndg',
-                style: MapBoxStyle.Light,
-                width: MediaQuery.of(context).size.width * 1.0,
-                height: MediaQuery.of(context).size.height * 0.85,
-                fit: BoxFit.contain,
-                borderRadius: BorderRadius.circular(0.0),
-                zoom: 12,
-                tilt: 0,
-                rotation: 0,
-              ),
+              child: FutureBuilder<LocationData?>(
+                  future: _model.currentLocation(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    if (snapshot.hasData) {
+                      final LocationData currentLocation = snapshot.data;
+                      return MapWidget(currentLocation: currentLocation);
+                    }
+                    return const Center(child: CircularProgressIndicator());
+                  }),
             ),
           ],
         ),
