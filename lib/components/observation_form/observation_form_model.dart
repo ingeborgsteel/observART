@@ -16,9 +16,8 @@ class ObservationFormModel extends FlutterFlowModel {
 
   // State field(s) for Slider widget.
   double? sliderValue;
-  DateTime? datePicked2;
-  DateTime? datePicked3;
-  DateTime? datePicked4;
+  DateTime? startDate;
+  DateTime? endDate;
 
   // State field(s) for comment widget.
   TextEditingController? commentController;
@@ -26,7 +25,10 @@ class ObservationFormModel extends FlutterFlowModel {
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    startDate = getCurrentTimestamp;
+    endDate = getCurrentTimestamp.add(const Duration(minutes: 30));
+  }
 
   void dispose() {
     locationNameController?.dispose();
