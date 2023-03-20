@@ -1,5 +1,6 @@
-class LatLng {
-  const LatLng(this.latitude, this.longitude);
+class FFLatLng {
+  const FFLatLng(this.latitude, this.longitude);
+
   final double latitude;
   final double longitude;
 
@@ -13,7 +14,7 @@ class LatLng {
 
   @override
   bool operator ==(other) =>
-      other is LatLng &&
+      other is FFLatLng &&
       latitude == other.latitude &&
       longitude == other.longitude;
 }

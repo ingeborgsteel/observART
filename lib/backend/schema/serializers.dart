@@ -1,11 +1,10 @@
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:from_css_color/from_css_color.dart';
 
-import 'users_record.dart';
 import 'appointments_record.dart';
 import 'asdfasdf_record.dart';
-
 import 'index.dart';
+import 'users_record.dart';
 
 export 'index.dart';
 
@@ -70,23 +69,23 @@ class DateTimeSerializer implements PrimitiveSerializer<DateTime> {
       serialized as DateTime;
 }
 
-class LatLngSerializer implements PrimitiveSerializer<LatLng> {
+class LatLngSerializer implements PrimitiveSerializer<FFLatLng> {
   final bool structured = false;
   @override
-  final Iterable<Type> types = new BuiltList<Type>([LatLng]);
+  final Iterable<Type> types = new BuiltList<Type>([FFLatLng]);
   @override
   final String wireName = 'LatLng';
 
   @override
-  Object serialize(Serializers serializers, LatLng location,
+  Object serialize(Serializers serializers, FFLatLng location,
       {FullType specifiedType: FullType.unspecified}) {
     return location;
   }
 
   @override
-  LatLng deserialize(Serializers serializers, Object serialized,
+  FFLatLng deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType: FullType.unspecified}) =>
-      serialized as LatLng;
+      serialized as FFLatLng;
 }
 
 class FirestoreUtilData {
@@ -96,10 +95,12 @@ class FirestoreUtilData {
     this.create = false,
     this.delete = false,
   });
+
   final Map<String, dynamic> fieldValues;
   final bool clearUnsetFields;
   final bool create;
   final bool delete;
+
   static String get name => 'firestoreUtilData';
 }
 
@@ -182,12 +183,12 @@ Map<String, dynamic> mapFromFirestore(Map<String, dynamic> data) =>
 Map<String, dynamic> mapToFirestore(Map<String, dynamic> data) =>
     data.where((k, v) => k != FirestoreUtilData.name).map((key, value) {
       // Handle GeoPoint
-      if (value is LatLng) {
+      if (value is FFLatLng) {
         value = value.toGeoPoint();
       }
       // Handle list of GeoPoint
-      if (value is Iterable && value.isNotEmpty && value.first is LatLng) {
-        value = value.map((v) => (v as LatLng).toGeoPoint()).toList();
+      if (value is Iterable && value.isNotEmpty && value.first is FFLatLng) {
+        value = value.map((v) => (v as FFLatLng).toGeoPoint()).toList();
       }
       // Handle nested data.
       if (value is Map) {
@@ -202,12 +203,12 @@ Map<String, dynamic> mapToFirestore(Map<String, dynamic> data) =>
       return MapEntry(key, value);
     });
 
-extension GeoPointExtension on LatLng {
+extension GeoPointExtension on FFLatLng {
   GeoPoint toGeoPoint() => GeoPoint(latitude, longitude);
 }
 
 extension LatLngExtension on GeoPoint {
-  LatLng toLatLng() => LatLng(latitude, longitude);
+  FFLatLng toLatLng() => FFLatLng(latitude, longitude);
 }
 
 DocumentReference toRef(String ref) => FirebaseFirestore.instance.doc(ref);

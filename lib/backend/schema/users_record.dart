@@ -1,8 +1,9 @@
 import 'dart:async';
 
+import 'package:built_value/built_value.dart';
+
 import 'index.dart';
 import 'serializers.dart';
-import 'package:built_value/built_value.dart';
 
 part 'users_record.g.dart';
 
@@ -22,7 +23,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   String? get ailments;
 
-  LatLng? get location;
+  FFLatLng? get location;
 
   @BuiltValueField(wireName: 'phone_number')
   String? get phoneNumber;
@@ -37,11 +38,12 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
+
   DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(UsersRecordBuilder builder) => builder
     ..displayName = ''
-    ..email = ''
+    ..email = 'example@example.org'
     ..password = ''
     ..uid = ''
     ..age = 0
@@ -62,6 +64,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
       .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   UsersRecord._();
+
   factory UsersRecord([void Function(UsersRecordBuilder) updates]) =
       _$UsersRecord;
 
@@ -78,7 +81,7 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   int? age,
   String? ailments,
-  LatLng? location,
+  FFLatLng? location,
   String? phoneNumber,
   String? photoUrl,
   DateTime? createdTime,

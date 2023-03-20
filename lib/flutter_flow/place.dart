@@ -2,7 +2,7 @@ import 'lat_lng.dart';
 
 class FFPlace {
   const FFPlace({
-    this.latLng = const LatLng(0.0, 0.0),
+    this.latLng = const FFLatLng(0.0, 0.0),
     this.name = '',
     this.address = '',
     this.city = '',
@@ -11,7 +11,7 @@ class FFPlace {
     this.zipCode = '',
   });
 
-  final LatLng latLng;
+  final FFLatLng latLng;
   final String name;
   final String address;
   final String city;
