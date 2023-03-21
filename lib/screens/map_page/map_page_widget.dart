@@ -49,7 +49,7 @@ class _MapPageWidgetState extends State<MapPageWidget> {
             builder: (context) {
               return Padding(
                 padding: MediaQuery.of(context).viewInsets,
-                child: Container(
+                child: const SizedBox(
                   height: double.infinity,
                   child: ObservationFormWidget(),
                 ),
@@ -74,11 +74,11 @@ class _MapPageWidgetState extends State<MapPageWidget> {
         ),
         actions: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+            padding: const EdgeInsets.only(right: 16.0),
             child: wrapWithModel(
               model: _model.mainLogoModel,
               updateCallback: () => setState(() {}),
-              child: MainLogoWidget(),
+              child: const MainLogoWidget(),
             ),
           ),
         ],
@@ -87,10 +87,10 @@ class _MapPageWidgetState extends State<MapPageWidget> {
       ),
       body: SafeArea(
         child: Stack(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           children: [
             Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: FutureBuilder<LocationData?>(
                   future: _model.currentLocation(),
                   builder:
