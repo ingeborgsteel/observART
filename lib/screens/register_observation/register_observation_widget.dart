@@ -231,7 +231,7 @@ class _RegisterObservationWidgetState extends State<RegisterObservationWidget>
                               leading: IconButton(
                                 icon: Icon(Icons.delete_outlined,
                                     color: FlutterFlowTheme.of(context)
-                                        .tertiaryColor),
+                                        .secondaryColor),
                                 onPressed: () => setState(() {
                                   _model.species.remove(species);
                                 }),

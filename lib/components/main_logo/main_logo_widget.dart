@@ -43,18 +43,29 @@ class _MainLogoWidgetState extends State<MainLogoWidget> {
         if (!(Theme.of(context).brightness == Brightness.dark))
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-            child: Image.asset(
-              'assets/images/health-ai_logoHorz_dark@3x.png',
-              width: 120.0,
-              height: 40.0,
-              fit: BoxFit.fitWidth,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 5.0),
+                  child: Image.asset(
+                    'assets/logo/tekst.png',
+                    width: 150.0,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+                Image.asset(
+                  'assets/logo/kikkert.png',
+                  width: 40.0,
+                  fit: BoxFit.fitWidth,
+                ),
+              ],
             ),
           ),
         if (Theme.of(context).brightness == Brightness.dark)
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
             child: Image.asset(
-              'assets/images/health-ai_logoHorz.png',
+              'assets/images/logo1.png',
               width: 120.0,
               height: 40.0,
               fit: BoxFit.fitWidth,

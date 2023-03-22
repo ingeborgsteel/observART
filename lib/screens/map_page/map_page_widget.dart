@@ -68,20 +68,14 @@ class _MapPageWidgetState extends State<MapPageWidget> {
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         automaticallyImplyLeading: false,
-        title: Text(
-          'Kart',
-          style: FlutterFlowTheme.of(context).title1,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: wrapWithModel(
-              model: _model.mainLogoModel,
-              updateCallback: () => setState(() {}),
-              child: const MainLogoWidget(),
-            ),
+        title: Padding(
+          padding: const EdgeInsets.only(left: 16.0),
+          child: wrapWithModel(
+            model: _model.mainLogoModel,
+            updateCallback: () => setState(() {}),
+            child: const MainLogoWidget(),
           ),
-        ],
+        ),
         centerTitle: false,
         elevation: 0.0,
       ),

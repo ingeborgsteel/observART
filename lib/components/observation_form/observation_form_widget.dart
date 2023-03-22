@@ -136,7 +136,8 @@ class _ObservationFormWidgetState extends State<ObservationFormWidget>
                         '${dateTimeFormat('dd.MM.yyyy', date)} kl. ${dateTimeFormat('kk:mm', date)}',
                         style: FlutterFlowTheme.of(context).bodyText2.override(
                               fontFamily: 'Outfit',
-                              color: FlutterFlowTheme.of(context).tertiaryColor,
+                              color:
+                                  FlutterFlowTheme.of(context).secondaryColor,
                               fontWeight: FontWeight.w600,
                             ),
                       ),
@@ -387,7 +388,7 @@ class _ObservationFormWidgetState extends State<ObservationFormWidget>
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .tertiaryColor,
+                                                                .secondaryColor,
                                                         fontWeight:
                                                             FontWeight.w600,
                                                       ),
