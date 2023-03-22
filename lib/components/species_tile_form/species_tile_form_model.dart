@@ -10,15 +10,17 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class SpeciesTileOpenModel extends FlutterFlowModel {
+class SpeciesTileFormModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for count widget.
   TextEditingController? countController;
   String? Function(BuildContext, String?)? countControllerValidator;
+
   // State field(s) for sex widget.
   TextEditingController? sexController;
   String? Function(BuildContext, String?)? sexControllerValidator;
+
   // State field(s) for RadioButton widget.
   FormFieldController<String>? radioButtonController;
 

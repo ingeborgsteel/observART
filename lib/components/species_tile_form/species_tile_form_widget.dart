@@ -9,19 +9,20 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'species_tile_open_model.dart';
-export 'species_tile_open_model.dart';
 
-class SpeciesTileOpenWidget extends StatefulWidget {
-  const SpeciesTileOpenWidget({Key? key}) : super(key: key);
+import 'species_tile_form_model.dart';
+export 'species_tile_form_model.dart';
+
+class SpeciesTileFormWidget extends StatefulWidget {
+  const SpeciesTileFormWidget({Key? key}) : super(key: key);
 
   @override
-  _SpeciesTileOpenWidgetState createState() => _SpeciesTileOpenWidgetState();
+  _SpeciesTileFormWidgetState createState() => _SpeciesTileFormWidgetState();
 }
 
-class _SpeciesTileOpenWidgetState extends State<SpeciesTileOpenWidget>
+class _SpeciesTileFormWidgetState extends State<SpeciesTileFormWidget>
     with TickerProviderStateMixin {
-  late SpeciesTileOpenModel _model;
+  late SpeciesTileFormModel _model;
 
   final animationsMap = {
     'textFieldOnPageLoadAnimation1': AnimationInfo(
@@ -31,22 +32,22 @@ class _SpeciesTileOpenWidgetState extends State<SpeciesTileOpenWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
+          begin: 0,
+          end: 1,
         ),
         MoveEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: Offset(0.0, 9.0),
-          end: Offset(0.0, 0.0),
+          begin: Offset(0, 9),
+          end: Offset(0, 0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: 1.0,
-          end: 1.0,
+          begin: 1,
+          end: 1,
         ),
       ],
     ),
@@ -57,22 +58,22 @@ class _SpeciesTileOpenWidgetState extends State<SpeciesTileOpenWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
+          begin: 0,
+          end: 1,
         ),
         MoveEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: Offset(0.0, 9.0),
-          end: Offset(0.0, 0.0),
+          begin: Offset(0, 9),
+          end: Offset(0, 0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: 1.0,
-          end: 1.0,
+          begin: 1,
+          end: 1,
         ),
       ],
     ),
@@ -87,7 +88,7 @@ class _SpeciesTileOpenWidgetState extends State<SpeciesTileOpenWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SpeciesTileOpenModel());
+    _model = createModel(context, () => SpeciesTileFormModel());
 
     _model.countController ??= TextEditingController();
     _model.sexController ??= TextEditingController();
@@ -111,33 +112,13 @@ class _SpeciesTileOpenWidgetState extends State<SpeciesTileOpenWidget>
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        ListTile(
-          leading: Icon(
-            Icons.delete_outlined,
-            color: FlutterFlowTheme.of(context).secondaryText,
-          ),
-          title: Text(
-            '[Species name]',
-            style: FlutterFlowTheme.of(context).title3,
-          ),
-          subtitle: Text(
-            '[Scientific name]',
-            style: FlutterFlowTheme.of(context).bodyText2,
-          ),
-          trailing: Icon(
-            Icons.keyboard_arrow_up,
-            color: Color(0xFF303030),
-            size: 20.0,
-          ),
-          dense: false,
-        ),
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                 child: TextFormField(
                   controller: _model.countController,
                   obscureText: false,
@@ -147,35 +128,35 @@ class _SpeciesTileOpenWidgetState extends State<SpeciesTileOpenWidget>
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: FlutterFlowTheme.of(context).primaryBackground,
-                        width: 2.0,
+                        width: 2,
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
-                        width: 2.0,
+                        width: 2,
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
-                        width: 2.0,
+                        width: 2,
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
-                        width: 2.0,
+                        width: 2,
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     filled: true,
                     fillColor: FlutterFlowTheme.of(context).primaryBackground,
                     contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 0.0, 24.0),
+                        EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                   ),
                   style: FlutterFlowTheme.of(context).bodyText1,
                   validator:
@@ -184,7 +165,7 @@ class _SpeciesTileOpenWidgetState extends State<SpeciesTileOpenWidget>
                     animationsMap['textFieldOnPageLoadAnimation1']!),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                 child: TextFormField(
                   controller: _model.sexController,
                   obscureText: false,
@@ -194,35 +175,35 @@ class _SpeciesTileOpenWidgetState extends State<SpeciesTileOpenWidget>
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: FlutterFlowTheme.of(context).primaryBackground,
-                        width: 2.0,
+                        width: 2,
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
-                        width: 2.0,
+                        width: 2,
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
-                        width: 2.0,
+                        width: 2,
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
-                        width: 2.0,
+                        width: 2,
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     filled: true,
                     fillColor: FlutterFlowTheme.of(context).primaryBackground,
                     contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 0.0, 24.0),
+                        EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                   ),
                   style: FlutterFlowTheme.of(context).bodyText1,
                   validator: _model.sexControllerValidator.asValidator(context),
@@ -230,11 +211,11 @@ class _SpeciesTileOpenWidgetState extends State<SpeciesTileOpenWidget>
                     animationsMap['textFieldOnPageLoadAnimation2']!),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                 child: Container(
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primaryBackground,
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(8),
                     shape: BoxShape.rectangle,
                   ),
                   child: Column(
@@ -242,8 +223,7 @@ class _SpeciesTileOpenWidgetState extends State<SpeciesTileOpenWidget>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            20.0, 16.0, 0.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 16, 0, 0),
                         child: Text(
                           'Kjønn',
                           textAlign: TextAlign.start,
@@ -253,21 +233,21 @@ class _SpeciesTileOpenWidgetState extends State<SpeciesTileOpenWidget>
                       Container(
                         decoration: BoxDecoration(),
                         child: Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: AlignmentDirectional(0, 0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 12.0),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
                             child: FlutterFlowRadioButton(
                               options: ['Male', 'Female'].toList(),
                               onChanged: (val) => setState(() {}),
                               controller: _model.radioButtonController ??=
                                   FormFieldController<String>(null),
-                              optionHeight: 25.0,
+                              optionHeight: 25,
                               textStyle: FlutterFlowTheme.of(context).bodyText2,
                               selectedTextStyle:
                                   FlutterFlowTheme.of(context).bodyText1,
-                              textPadding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 12.0, 0.0),
+                              textPadding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
                               buttonPosition: RadioButtonPosition.left,
                               direction: Axis.horizontal,
                               radioButtonColor:

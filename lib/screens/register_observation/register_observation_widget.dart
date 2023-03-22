@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '/auth/auth_util.dart';
+import '../../components/species_tile_form/species_tile_form_widget.dart';
+import '../../models/species.dart';
 import '/backend/backend.dart';
 import '/components/species_picker/species_picker_widget.dart';
-import '/components/species_tile_closed/species_tile_closed_widget.dart';
-import '/components/species_tile_open/species_tile_open_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -36,72 +35,45 @@ class _RegisterObservationWidgetState extends State<RegisterObservationWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final animationsMap = {
-    'buttonOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.bounceOut,
-          delay: 150.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.bounceOut,
-          delay: 150.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 20.0),
-          end: Offset(0.0, 0.0),
-        ),
-        ScaleEffect(
-          curve: Curves.bounceOut,
-          delay: 150.ms,
-          duration: 600.ms,
-          begin: 1.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'buttonOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.bounceOut,
-          delay: 150.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.bounceOut,
-          delay: 150.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 20.0),
-          end: Offset(0.0, 0.0),
-        ),
-        ScaleEffect(
-          curve: Curves.bounceOut,
-          delay: 150.ms,
-          duration: 600.ms,
-          begin: 1.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-  };
+  final animation = AnimationInfo(
+    trigger: AnimationTrigger.onPageLoad,
+    effects: [
+      FadeEffect(
+        curve: Curves.easeInOut,
+        delay: 0.ms,
+        duration: 600.ms,
+        begin: 0.0,
+        end: 1.0,
+      ),
+      MoveEffect(
+        curve: Curves.easeInOut,
+        delay: 0.ms,
+        duration: 600.ms,
+        begin: const Offset(0.0, 9.0),
+        end: const Offset(0.0, 0.0),
+      ),
+      ScaleEffect(
+        curve: Curves.easeInOut,
+        delay: 0.ms,
+        duration: 600.ms,
+        begin: 1.0,
+        end: 1.0,
+      ),
+    ],
+  );
+
+  void addSpecies(List<Species> newSpecies) {
+    setState(() {
+      _model.species.addAll(newSpecies);
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => RegisterObservationModel());
 
-    setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
-      this,
-    );
+    createAnimation(animation, this);
   }
 
   @override
@@ -113,7 +85,7 @@ class _RegisterObservationWidgetState extends State<RegisterObservationWidget>
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<UsersRecord>(
+    /*return StreamBuilder<UsersRecord>(
       stream: UsersRecord.getDocument(currentUserReference!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
@@ -129,238 +101,233 @@ class _RegisterObservationWidgetState extends State<RegisterObservationWidget>
             ),
           );
         }
-        final registerObservationUsersRecord = snapshot.data!;
-        return Scaffold(
-          key: scaffoldKey,
-          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-          appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-            automaticallyImplyLeading: false,
-            leading: InkWell(
-              onTap: () async {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.chevron_left_rounded,
-                color: FlutterFlowTheme.of(context).grayLight,
-                size: 32.0,
-              ),
-            ),
-            title: Text(
-              'Registrer observasjon',
-              style: FlutterFlowTheme.of(context).title3,
-            ),
-            actions: [],
-            centerTitle: false,
-            elevation: 0.0,
+        final registerObservationUsersRecord = snapshot.data!;*/
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+      appBar: AppBar(
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        automaticallyImplyLeading: false,
+        leading: InkWell(
+          onTap: () async {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.chevron_left_rounded,
+            color: FlutterFlowTheme.of(context).grayLight,
+            size: 32.0,
           ),
-          body: Container(
-            width: MediaQuery.of(context).size.width * 1.0,
-            height: MediaQuery.of(context).size.height * 1.0,
-            decoration: BoxDecoration(),
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
-              child: StreamBuilder<UsersRecord>(
-                stream: UsersRecord.getDocument(currentUserReference!),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 40.0,
-                        height: 40.0,
-                        child: SpinKitPumpingHeart(
-                          color: FlutterFlowTheme.of(context).primaryColor,
-                          size: 40.0,
-                        ),
-                      ),
-                    );
-                  }
-                  final columnUsersRecord = snapshot.data!;
-                  return SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 16.0, 0.0, 0.0),
-                                  child: Text(
-                                    '[location]',
-                                    style: FlutterFlowTheme.of(context)
-                                        .subtitle1
-                                        .override(
-                                          fontFamily: 'Outfit',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
-                                        ),
+        ),
+        title: Text(
+          'Oppdater observasjon',
+          style: FlutterFlowTheme.of(context).title3,
+        ),
+        centerTitle: false,
+        elevation: 0.0,
+      ),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(),
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: /*StreamBuilder<UsersRecord>(
+            stream: UsersRecord.getDocument(currentUserReference!),
+            builder: (context, snapshot) {
+              // Customize what your widget looks like when it's loading.
+              if (!snapshot.hasData) {
+                return Center(
+                  child: SizedBox(
+                    width: 40.0,
+                    height: 40.0,
+                    child: SpinKitPumpingHeart(
+                      color: FlutterFlowTheme.of(context).primaryColor,
+                      size: 40.0,
+                    ),
+                  ),
+                );
+              }
+              final columnUsersRecord = snapshot.data!;
+              return */
+                SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16.0),
+                            child: Text(
+                              '[location]',
+                              style: FlutterFlowTheme.of(context)
+                                  .subtitle1
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 4.0, 0.0, 12.0),
-                                  child: Text(
-                                    '[tidsrom]',
-                                    style: FlutterFlowTheme.of(context)
-                                        .subtitle1
-                                        .override(
-                                          fontFamily: 'Outfit',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
-                                        ),
-                                  ),
-                                ),
-                              ],
                             ),
-                            FlutterFlowIconButton(
-                              borderColor: Colors.transparent,
-                              borderRadius: 30.0,
-                              borderWidth: 1.0,
-                              buttonSize: 50.0,
-                              fillColor:
-                                  FlutterFlowTheme.of(context).primaryColor,
-                              icon: Icon(
-                                Icons.add,
-                                color: FlutterFlowTheme.of(context).alternate,
-                                size: 30.0,
-                              ),
-                              onPressed: () async {
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  enableDrag: false,
-                                  context: context,
-                                  builder: (context) {
-                                    return Padding(
-                                      padding:
-                                          MediaQuery.of(context).viewInsets,
-                                      child: SpeciesPickerWidget(),
-                                    );
-                                  },
-                                ).then((value) => setState(() {}));
-                              },
-                            ),
-                          ],
-                        ),
-                        ListView(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(),
-                              child: wrapWithModel(
-                                model: _model.speciesTileOpenModel,
-                                updateCallback: () => setState(() {}),
-                                child: SpeciesTileOpenWidget(),
-                              ),
-                            ),
-                            wrapWithModel(
-                              model: _model.speciesTileClosedModel1,
-                              updateCallback: () => setState(() {}),
-                              child: SpeciesTileClosedWidget(),
-                            ),
-                            wrapWithModel(
-                              model: _model.speciesTileClosedModel2,
-                              updateCallback: () => setState(() {}),
-                              child: SpeciesTileClosedWidget(),
-                            ),
-                            wrapWithModel(
-                              model: _model.speciesTileClosedModel3,
-                              updateCallback: () => setState(() {}),
-                              child: SpeciesTileClosedWidget(),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 24.0, 0.0, 20.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              FFButtonWidget(
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                },
-                                text: 'Avbryt',
-                                options: FFButtonOptions(
-                                  width: 100.0,
-                                  height: 50.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .subtitle2
-                                      .override(
-                                        fontFamily: 'Outfit',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                  elevation: 0.0,
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(40.0),
-                                ),
-                              ).animateOnPageLoad(
-                                  animationsMap['buttonOnPageLoadAnimation1']!),
-                              FFButtonWidget(
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                },
-                                text: 'Lagre',
-                                options: FFButtonOptions(
-                                  width: 170.0,
-                                  height: 50.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .subtitle2
-                                      .override(
-                                        fontFamily: 'Outfit',
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                  elevation: 3.0,
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(40.0),
-                                ),
-                              ).animateOnPageLoad(
-                                  animationsMap['buttonOnPageLoadAnimation2']!),
-                            ],
                           ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 4.0, bottom: 12.0),
+                            child: Text(
+                              '[tidsrom]',
+                              style: FlutterFlowTheme.of(context)
+                                  .subtitle1
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30.0,
+                        buttonSize: 50.0,
+                        fillColor: FlutterFlowTheme.of(context).primaryColor,
+                        icon: Icon(
+                          Icons.search,
+                          color: FlutterFlowTheme.of(context).alternate,
+                          size: 30.0,
                         ),
+                        onPressed: () async {
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return Padding(
+                                padding: MediaQuery.of(context).viewInsets,
+                                child:
+                                    SpeciesPickerWidget(addSpecies: addSpecies),
+                              );
+                            },
+                          ).then((value) => setState(() {}));
+                        },
+                      ),
+                    ],
+                  ),
+                  ListView(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      children: _model.species.map((species) {
+                        return ExpandableNotifier(
+                          initialExpanded: false,
+                          child: ExpandablePanel(
+                            header: ListTile(
+                              leading: IconButton(
+                                icon: Icon(Icons.delete_outlined,
+                                    color: FlutterFlowTheme.of(context)
+                                        .tertiaryColor),
+                                onPressed: () => setState(() {
+                                  _model.species.remove(species);
+                                }),
+                              ),
+                              title: Text(
+                                species.name,
+                                style: FlutterFlowTheme.of(context).title3,
+                              ),
+                              subtitle: Text(
+                                species.scientificName,
+                                style: FlutterFlowTheme.of(context).bodyText2,
+                              ),
+                              dense: false,
+                            ),
+                            collapsed: Container(),
+                            expanded: Container(
+                              height: 220,
+                              decoration: const BoxDecoration(),
+                              child: wrapWithModel(
+                                model: _model.speciesTileFormModel,
+                                updateCallback: () => setState(() {}),
+                                child: const SpeciesTileFormWidget(),
+                              ),
+                            ),
+                            theme: const ExpandableThemeData(
+                              tapHeaderToExpand: true,
+                              tapBodyToExpand: false,
+                              tapBodyToCollapse: false,
+                              headerAlignment:
+                                  ExpandablePanelHeaderAlignment.center,
+                              hasIcon: true,
+                            ),
+                          ),
+                        );
+                      }).toList()),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        FFButtonWidget(
+                          onPressed: () async {
+                            //TODO fix navigering
+                            Navigator.pop(context);
+                          },
+                          text: 'Avbryt',
+                          options: FFButtonOptions(
+                            width: 100.0,
+                            height: 50.0,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .subtitle2
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                        ).animateOnPageLoad(animation),
+                        FFButtonWidget(
+                          onPressed: () async {
+                            Navigator.pop(context);
+                          },
+                          text: 'Lagre',
+                          options: FFButtonOptions(
+                            width: 170.0,
+                            height: 50.0,
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            textStyle:
+                                FlutterFlowTheme.of(context).subtitle2.override(
+                                      fontFamily: 'Outfit',
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                            elevation: 3.0,
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                        ).animateOnPageLoad(animation),
                       ],
                     ),
-                  );
-                },
+                  ),
+                ],
               ),
+            )
+            //},
+            //),
             ),
-          ),
-        );
-      },
+      ),
     );
+    //},
+    //);
   }
 }
