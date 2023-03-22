@@ -1,4 +1,4 @@
-import 'package:hvart_har_du_sett/models/species.dart';
+import 'package:hvart_har_du_sett/backend/api_models/species_search_result.dart';
 
 import '/auth/auth_util.dart';
 import '/backend/backend.dart';
@@ -24,7 +24,7 @@ class RegisterObservationModel extends FlutterFlowModel {
   // Model for speciesTileForm component.
   late SpeciesTileFormModel speciesTileFormModel;
 
-  late List<Species> species;
+  late List<SpeciesSearchResult> species;
 
   /// Initialization and disposal methods.
 
@@ -38,8 +38,4 @@ class RegisterObservationModel extends FlutterFlowModel {
   }
 
   /// Additional helper methods are added here.
-
-  void addSpecies(List<Species> newSpecies) {
-    species.addAll(newSpecies);
-  }
 }

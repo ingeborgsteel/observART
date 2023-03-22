@@ -10,9 +10,8 @@ class TaxonAPI {
   TaxonAPI() : super();
 
   Future<http.Response> searchForTaxons(String searchTerm) {
-    return http.get(
-        Uri.parse(
-            '$basePath?term=$searchTerm&taxonGroups=${taxonGroups["birds"]}'),
+    return http.get(Uri.parse('$basePath?term=$searchTerm'),
+        //&taxonGroups=${taxonGroups["birds"]}
         headers: {'accept': 'application/json'});
   }
 }

@@ -1,4 +1,4 @@
-import 'package:hvart_har_du_sett/api/taxon_api.dart';
+import 'package:hvart_har_du_sett/backend/api/taxon_api.dart';
 
 class _API {
   final taxon = TaxonAPI();

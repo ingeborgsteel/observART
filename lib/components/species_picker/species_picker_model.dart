@@ -1,3 +1,5 @@
+import 'package:hvart_har_du_sett/backend/api_models/species_search_result.dart';
+
 import '/auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -18,24 +20,21 @@ class SpeciesPickerModel extends FlutterFlowModel {
 
   // State field(s) for CheckboxListTile widget.
   bool? checkboxListTileValue1;
-  // State field(s) for CheckboxListTile widget.
-  bool? checkboxListTileValue2;
-  // State field(s) for CheckboxListTile widget.
-  bool? checkboxListTileValue3;
-  // State field(s) for CheckboxListTile widget.
-  bool? checkboxListTileValue4;
-  // State field(s) for CheckboxListTile widget.
-  bool? checkboxListTileValue5;
+
+  String? searchValue;
+  List<SpeciesSearchResult> searchResult = [];
+  bool loading = false;
+
   // State field(s) for locationName widget.
-  TextEditingController? locationNameController;
-  String? Function(BuildContext, String?)? locationNameControllerValidator;
+  TextEditingController? searchController;
+  String? Function(BuildContext, String?)? searchControllerValidator;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {}
 
   void dispose() {
-    locationNameController?.dispose();
+    searchController?.dispose();
   }
 
   /// Additional helper methods are added here.

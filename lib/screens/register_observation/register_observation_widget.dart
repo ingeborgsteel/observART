@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../components/species_tile_form/species_tile_form_widget.dart';
-import '../../models/species.dart';
+import '../../backend/api_models/species_search_result.dart';
 import '/backend/backend.dart';
 import '/components/species_picker/species_picker_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -62,7 +62,7 @@ class _RegisterObservationWidgetState extends State<RegisterObservationWidget>
     ],
   );
 
-  void addSpecies(List<Species> newSpecies) {
+  void addSpecies(Iterable<SpeciesSearchResult> newSpecies) {
     setState(() {
       _model.species.addAll(newSpecies);
     });
@@ -237,19 +237,17 @@ class _RegisterObservationWidgetState extends State<RegisterObservationWidget>
                                 }),
                               ),
                               title: Text(
-                                species.name,
+                                species.name ?? '',
                                 style: FlutterFlowTheme.of(context).title3,
                               ),
                               subtitle: Text(
-                                species.scientificName,
+                                species.scientificName ?? '',
                                 style: FlutterFlowTheme.of(context).bodyText2,
                               ),
                               dense: false,
                             ),
                             collapsed: Container(),
                             expanded: Container(
-                              height: 220,
-                              decoration: const BoxDecoration(),
                               child: wrapWithModel(
                                 model: _model.speciesTileFormModel,
                                 updateCallback: () => setState(() {}),
