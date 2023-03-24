@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       ..listen((user) => initialUser ?? setState(() => initialUser = user));
     jwtTokenStream.listen((_) {});*/
     Future.delayed(
-      Duration(seconds: 1),
+      const Duration(seconds: 3),
       () => setState(() => displaySplashImage = false),
     );
   }
@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'HvART har du sett',
-        localizationsDelegates: [
+        localizationsDelegates: const [
           FFLocalizationsDelegate(),
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
@@ -80,11 +80,11 @@ class _MyAppState extends State<MyApp> {
         home: /*initialUser == null || */ displaySplashImage
             ? Builder(
                 builder: (context) => Container(
-                  color: Colors.transparent,
+                  color: FlutterFlowTheme.of(context).primaryBackground,
                   child: Center(
                     child: Image.asset(
-                      'assets/images/Medical_ScheduleApp_0.0.png',
-                      width: MediaQuery.of(context).size.width * 0.5,
+                      'assets/logo/logo1.png',
+                      width: MediaQuery.of(context).size.width * 0.8,
                       fit: BoxFit.fitWidth,
                     ),
                   ),
@@ -123,8 +123,8 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'mapPage': MapPageWidget(),
-      'settingsPage': SettingsPageWidget(),
+      'mapPage': const MapPageWidget(),
+      'settingsPage': const SettingsPageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(

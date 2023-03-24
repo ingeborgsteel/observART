@@ -5,6 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
+import '../../backend/api_models/observation_record_impl.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -483,11 +484,27 @@ class _ObservationFormWidgetState extends State<ObservationFormWidget>
                                       ).animateOnPageLoad(animation),
                                       FFButtonWidget(
                                         onPressed: () async {
+                                          ObservationRecordImpl observation =
+                                              ObservationRecordImpl(
+                                                  _model.locationNameController
+                                                          .text.isNotEmpty
+                                                      ? _model
+                                                          .locationNameController
+                                                          .text
+                                                      : 'Uten navn',
+                                                  _model.coObserverController
+                                                      .text,
+                                                  _model.sliderValue,
+                                                  _model.startDate,
+                                                  _model.endDate,
+                                                  _model
+                                                      .commentController.text);
                                           await Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  const RegisterObservationWidget(),
+                                                  RegisterObservationWidget(
+                                                      observation: observation),
                                             ),
                                           );
                                         },

@@ -1,3 +1,5 @@
+import 'package:hvart_har_du_sett/backend/api_models/observation_record_impl.dart';
+import 'package:hvart_har_du_sett/backend/api_models/species_observation.dart';
 import 'package:hvart_har_du_sett/backend/api_models/species_search_result.dart';
 
 import '/auth/auth_util.dart';
@@ -24,13 +26,14 @@ class RegisterObservationModel extends FlutterFlowModel {
   // Model for speciesTileForm component.
   late SpeciesTileFormModel speciesTileFormModel;
 
-  late List<SpeciesSearchResult> species;
+  late ObservationRecordImpl observation;
+
+  RegisterObservationModel(this.observation);
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     speciesTileFormModel = createModel(context, () => SpeciesTileFormModel());
-    species = [];
   }
 
   void dispose() {

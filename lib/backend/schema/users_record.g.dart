@@ -292,75 +292,51 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   _$UsersRecord? _$v;
 
   String? _displayName;
-
   String? get displayName => _$this._displayName;
-
   set displayName(String? displayName) => _$this._displayName = displayName;
 
   String? _email;
-
   String? get email => _$this._email;
-
   set email(String? email) => _$this._email = email;
 
   String? _password;
-
   String? get password => _$this._password;
-
   set password(String? password) => _$this._password = password;
 
   String? _uid;
-
   String? get uid => _$this._uid;
-
   set uid(String? uid) => _$this._uid = uid;
 
   int? _age;
-
   int? get age => _$this._age;
-
   set age(int? age) => _$this._age = age;
 
   String? _ailments;
-
   String? get ailments => _$this._ailments;
-
   set ailments(String? ailments) => _$this._ailments = ailments;
 
   FFLatLng? _location;
-
   FFLatLng? get location => _$this._location;
-
   set location(FFLatLng? location) => _$this._location = location;
 
   String? _phoneNumber;
-
   String? get phoneNumber => _$this._phoneNumber;
-
   set phoneNumber(String? phoneNumber) => _$this._phoneNumber = phoneNumber;
 
   String? _photoUrl;
-
   String? get photoUrl => _$this._photoUrl;
-
   set photoUrl(String? photoUrl) => _$this._photoUrl = photoUrl;
 
   DateTime? _createdTime;
-
   DateTime? get createdTime => _$this._createdTime;
-
   set createdTime(DateTime? createdTime) => _$this._createdTime = createdTime;
 
   String? _userSex;
-
   String? get userSex => _$this._userSex;
-
   set userSex(String? userSex) => _$this._userSex = userSex;
 
   DocumentReference<Object?>? _ffRef;
-
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
-
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
   UsersRecordBuilder() {

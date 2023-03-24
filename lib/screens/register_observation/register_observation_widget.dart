@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:hvart_har_du_sett/backend/api_models/observation_record_impl.dart';
+import 'package:hvart_har_du_sett/backend/api_models/species_observation.dart';
 
 import '../../components/species_tile_form/species_tile_form_widget.dart';
 import '../../backend/api_models/species_search_result.dart';
@@ -17,10 +19,11 @@ import 'register_observation_model.dart';
 export 'register_observation_model.dart';
 
 class RegisterObservationWidget extends StatefulWidget {
-  const RegisterObservationWidget({
-    Key? key,
-    this.userProfile,
-  }) : super(key: key);
+  final ObservationRecordImpl observation;
+
+  const RegisterObservationWidget(
+      {Key? key, this.userProfile, required this.observation})
+      : super(key: key);
 
   final DocumentReference? userProfile;
 
@@ -64,14 +67,17 @@ class _RegisterObservationWidgetState extends State<RegisterObservationWidget>
 
   void addSpecies(Iterable<SpeciesSearchResult> newSpecies) {
     setState(() {
-      _model.species.addAll(newSpecies);
+      _model.observation.species.addAll(newSpecies.map((species) =>
+          SpeciesObservation(species.id, species.taxonGroup,
+              species.scientificName, species.name)));
     });
   }
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => RegisterObservationModel());
+    _model = createModel(
+        context, () => RegisterObservationModel(widget.observation));
 
     createAnimation(animation, this);
   }
@@ -81,6 +87,21 @@ class _RegisterObservationWidgetState extends State<RegisterObservationWidget>
     _model.dispose();
 
     super.dispose();
+  }
+
+  String parseTimeString() {
+    DateTime? startTime = _model.observation.startTime;
+    DateTime? endTime = _model.observation.endTime;
+
+    String parsedStartTime =
+        '${dateTimeFormat('dd.MM', startTime)} kl. ${dateTimeFormat('kk:mm', startTime)}';
+    String parsedEndTime = endTime?.day != startTime?.day
+        ? '${dateTimeFormat('dd.MM', endTime)} kl. ${dateTimeFormat('kk:mm', endTime)}'
+        : dateTimeFormat('kk:mm', endTime);
+
+    print(endTime?.day == startTime?.day);
+
+    return '$parsedStartTime - $parsedEndTime';
   }
 
   @override
@@ -161,11 +182,12 @@ class _RegisterObservationWidgetState extends State<RegisterObservationWidget>
                     children: [
                       Column(
                         mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(top: 16.0),
                             child: Text(
-                              '[location]',
+                              _model.observation.locationName ?? 'Uten navn',
                               style: FlutterFlowTheme.of(context)
                                   .subtitle1
                                   .override(
@@ -173,13 +195,14 @@ class _RegisterObservationWidgetState extends State<RegisterObservationWidget>
                                     color: FlutterFlowTheme.of(context)
                                         .primaryColor,
                                   ),
+                              textAlign: TextAlign.left,
                             ),
                           ),
                           Padding(
                             padding:
                                 const EdgeInsets.only(top: 4.0, bottom: 12.0),
                             child: Text(
-                              '[tidsrom]',
+                              parseTimeString(),
                               style: FlutterFlowTheme.of(context)
                                   .subtitle1
                                   .override(
@@ -223,7 +246,7 @@ class _RegisterObservationWidgetState extends State<RegisterObservationWidget>
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
-                      children: _model.species.map((species) {
+                      children: _model.observation.species.map((species) {
                         return ExpandableNotifier(
                           initialExpanded: false,
                           child: ExpandablePanel(
@@ -233,7 +256,7 @@ class _RegisterObservationWidgetState extends State<RegisterObservationWidget>
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryColor),
                                 onPressed: () => setState(() {
-                                  _model.species.remove(species);
+                                  _model.observation.species.remove(species);
                                 }),
                               ),
                               title: Text(

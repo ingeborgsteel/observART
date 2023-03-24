@@ -8,7 +8,7 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AppointmentsRecord.serializer)
-      ..add(AsdfasdfRecord.serializer)
+      ..add(ObservationRecord.serializer)
       ..add(UsersRecord.serializer))
     .build();
 

@@ -7,7 +7,6 @@ import '../flutter_flow/flutter_flow_util.dart';
 
 import 'schema/users_record.dart';
 import 'schema/appointments_record.dart';
-import 'schema/asdfasdf_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -17,7 +16,6 @@ export 'schema/serializers.dart';
 
 export 'schema/users_record.dart';
 export 'schema/appointments_record.dart';
-export 'schema/asdfasdf_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -117,58 +115,6 @@ Future<FFFirestorePage<AppointmentsRecord>> queryAppointmentsRecordPage({
     queryCollectionPage(
       AppointmentsRecord.collection,
       AppointmentsRecord.serializer,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
-/// Functions to query AsdfasdfRecords (as a Stream and as a Future).
-Future<int> queryAsdfasdfRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      AsdfasdfRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<AsdfasdfRecord>> queryAsdfasdfRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      AsdfasdfRecord.collection,
-      AsdfasdfRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<AsdfasdfRecord>> queryAsdfasdfRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      AsdfasdfRecord.collection,
-      AsdfasdfRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<AsdfasdfRecord>> queryAsdfasdfRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      AsdfasdfRecord.collection,
-      AsdfasdfRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
