@@ -1,19 +1,12 @@
-# hvart_har_du_sett
+# observART
 
-A new Flutter project.
+WIP project on registering species observations in Norway. Integrated with APIs provided by
+Artsdatabanken, and plan to expand with integrations to Firebase to enable user logins, and further
+expansion of funcitonality for simple usage.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials, samples, guidance on
-mobile development, and a full API reference.
+![img.png](assets/images/map_screen.png)
+![img.png](assets/images/register_screen.png)
+![img.png](assets/images/add_species.png)
 
 ## Helpful commandos
 
@@ -22,7 +15,7 @@ flutter pub add 'package-name'
 flutter pub get # while in pubspec.yaml
 ```
 
-flutter flow sier jeg må kjøre før run
+### Flutter flow før run
 
 ```bash
 flutter pub get
